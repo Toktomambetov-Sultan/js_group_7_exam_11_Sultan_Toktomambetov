@@ -6,6 +6,8 @@ const cors = require("cors");
 const app = express();
 
 const userRouter = require("./routers/userRouter");
+const categoryRouter = require("./routers/categoryModel");
+const productRouter = require("./routers/productModel");
 
 const run = async () => {
   try {
@@ -26,6 +28,8 @@ const run = async () => {
   app.use(express.json());
 
   app.use("/users", userRouter);
+  app.use("/categories", categoryRouter);
+  app.use("/products", productRouter);
 
   app.listen(config.port, () => {
     console.log(`Server started on ${config.port} port.`);
