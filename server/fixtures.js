@@ -17,13 +17,23 @@ db.once("open", async () => {
   } catch (e) {
     console.log("Collections were not present, skipping drop...");
   }
-  const user = await schema.User.create({
-    username: "Sultan",
-    password: "H1h2h3h4",
-    displayName: "Sultan",
-    phoneNumber: "+996700120324",
-    token: nanoid(),
-  });
+  const [user1, user2] = await schema.User.create(
+    {
+      username: "Sultan",
+      password: "H1h2h3h4",
+      displayName: "Sultan",
+      phoneNumber: "+996700111111",
+      token: nanoid(),
+    },
+    {
+      username: "Alisher",
+      password: "H1h2h3h4",
+      displayName: "Alish",
+      phoneNumber: "+996700222222",
+      token: nanoid(),
+    }
+  );
+
   const [category1, category2] = await schema.Category.create(
     {
       name: "technics",
@@ -38,6 +48,23 @@ db.once("open", async () => {
       name: "chancellery",
     }
   );
-  // const [product1, product2] = await schema.Category.create
+  await schema.Product.create(
+    {
+      image: "image1.jpeg",
+      category: category1._id,
+      title: "Title1",
+      price: 40,
+      description: "description1",
+      user: user1._id,
+    },
+    {
+      image: "image2.jpeg",
+      category: category2._id,
+      title: "Title22",
+      price: 42,
+      description: "description2",
+      user: user2._id,
+    }
+  );
   db.close();
 });
