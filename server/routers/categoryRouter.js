@@ -1,5 +1,5 @@
 const express = require("express");
-const schema = require("./../Models");
+const schema = require("../Models");
 const router = express.Router();
 
 router.get("/", async (req, res) => {

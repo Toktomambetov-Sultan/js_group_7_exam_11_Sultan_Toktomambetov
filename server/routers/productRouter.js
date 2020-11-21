@@ -1,10 +1,10 @@
 const express = require("express");
-const schema = require("./../Models");
+const schema = require("../Models");
 const router = express.Router();
-const authorizationMiddleware = require("./../tools/routers/authorizationMiddleware");
+const authorizationMiddleware = require("../tools/routers/authorizationMiddleware");
 const uploadImage = require("../tools/routers/uploadImg");
 const fs = require("fs").promises;
-const config = require("./../config");
+const config = require("../config");
 
 router.get("/", async (req, res) => {
   try {
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
       });
     res.send(products);
   } catch (error) {
-    res.status(500).send({ message: "Some problems with server." });
+    res.status(500).send(error);
   }
 });
 
@@ -32,6 +32,7 @@ router.post(
         title: req.body.title,
         description: req.body.description,
         category: req.body.category,
+        price: req.body.price,
       });
       product.image = file && file.filename;
       product.user = req.user._id;
@@ -45,12 +46,20 @@ router.post(
   }
 );
 
-router.delete("/", async (req, res) => {
+router.post("/delete", authorizationMiddleware, async (req, res) => {
   try {
-    const ans = await schema.Product.deleteMany(req.query);
+    const product = await schema.Product.findOne({
+      _id: req.body.id,
+    });
+    if (String(product.user._id) !== String(req.user._id)) {
+      return res
+        .status(403)
+        .send({ errors: { _id: { message: "Users don't match" } } });
+    }
+    const ans = await schema.Product.deleteOne(req.query);
     res.send(ans);
   } catch (error) {
-    res.send(error);
+    res.status(400).send(error);
   }
 });
 

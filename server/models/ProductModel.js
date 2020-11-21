@@ -22,6 +22,11 @@ const ProductModel = new Schema({
     type: String,
     required: true,
   },
+  price: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",

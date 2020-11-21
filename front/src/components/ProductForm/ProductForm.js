@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   title: {
     marginBottom: "30px",
-    width: "400px",
+    width: "500px",
   },
   Bottom: {
     padding: "30px 20px",
@@ -37,7 +37,7 @@ const ProductForm = ({ onSubmit, onChange, error, product }) => {
   const categories = useSelector((state) => state.category.data);
   return (
     <Container component="main" maxWidth="md">
-      <Box textAlign="center">
+      <Box textAlign="center" bgcolor="#fff" margin={1} padding={1} borderRadius={10}>
         <Typography variant="h5">Add new product</Typography>
         <form onSubmit={onSubmit}>
           <TextField
@@ -48,6 +48,17 @@ const ProductForm = ({ onSubmit, onChange, error, product }) => {
             name="title"
             autoFocus
             value={product.title}
+            onChange={onChange}
+          />
+          <TextField
+            margin="normal"
+            className={classes.title}
+            error={!!error?.price}
+            label={error?.price?.message || "Price"}
+            name="price"
+            autoFocus
+            type="number"
+            value={product.price}
             onChange={onChange}
           />
           <TextField

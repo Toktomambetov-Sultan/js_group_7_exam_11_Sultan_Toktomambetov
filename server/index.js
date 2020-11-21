@@ -6,8 +6,8 @@ const cors = require("cors");
 const app = express();
 
 const userRouter = require("./routers/userRouter");
-const categoryRouter = require("./routers/categoryModel");
-const productRouter = require("./routers/productModel");
+const categoryRouter = require("./routers/categoryRouter");
+const productRouter = require("./routers/productRouter");
 
 const run = async () => {
   try {
@@ -23,6 +23,8 @@ const run = async () => {
     return;
   }
   console.log("Connected to mongodb.");
+  
+
   app.use(cors());
   app.use(express.static("public"));
   app.use(express.json());

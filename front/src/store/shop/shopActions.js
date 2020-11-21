@@ -10,6 +10,23 @@ const setData = (data) => {
   };
 };
 
+export const deleteProductData = (id) => {
+  return async (dispatch, getState) => {
+    dispatch(fetchRequest());
+    try {
+      const headers = {
+        Authorization: getState().user.user?.token,
+      };
+      console.log(getState().user.user?.token);
+      await axiosOrder.post("/products/delete", { id }, { headers });
+      dispatch(push("/"));
+      dispatch(fetchSuccess());
+    } catch (error) {
+      dispatch(fetchError(error.response?.data));
+    }
+  };
+};
+
 export const getProductData = (query = "") => {
   return async (dispatch) => {
     dispatch(fetchRequest());

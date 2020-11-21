@@ -14,6 +14,7 @@ const AddProductPage = () => {
     title: "",
     description: "",
     image: null,
+    price: "",
     category: categories[0]?._id,
   });
 
