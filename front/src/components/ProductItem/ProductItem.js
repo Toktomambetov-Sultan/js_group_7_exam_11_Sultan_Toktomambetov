@@ -58,7 +58,7 @@ const ProductItem = ({ product, onDelete, hide, onClick, user }) => {
               <p>{product?.description}</p>
             </Typography>
           )}
-          <Box hidden={product?.user._id !== user?._id} m={1} textAlign="start">
+          <Box hidden={!hide} m={1} textAlign="start">
             <Button variant="outlined" onClick={onClick} color="primary">
               See more information
             </Button>
