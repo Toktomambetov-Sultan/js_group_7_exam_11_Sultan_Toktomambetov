@@ -12,6 +12,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { logOut } from "../../store/user/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import Grayback from "../../components/Grayback/Grayback";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -34,6 +35,7 @@ const Layout = ({ children }) => {
   const classes = useStyles();
 
   const state = useSelector((state) => state.user);
+  const isLoading = useSelector((state) => state.main.isLoading);
   const dispatch = useDispatch();
   const logOutHandler = () => {
     dispatch(logOut());
@@ -87,7 +89,8 @@ const Layout = ({ children }) => {
       </AppBar>
 
       <Box component="main" paddingTop="5px">
-        <Container>{children}</Container>
+          <Grayback show={isLoading} />
+          <Container>{children}</Container>
       </Box>
     </div>
   );

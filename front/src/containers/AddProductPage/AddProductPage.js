@@ -48,7 +48,6 @@ const AddProductPage = () => {
       [name]: value,
     }));
   };
-  console.log(state.error?.errors);
   return (
     userState.user && (
       <ProductForm

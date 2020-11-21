@@ -17,7 +17,6 @@ export const deleteProductData = (id) => {
       const headers = {
         Authorization: getState().user.user?.token,
       };
-      console.log(getState().user.user?.token);
       await axiosOrder.post("/products/delete", { id }, { headers });
       dispatch(push("/"));
       dispatch(fetchSuccess());
